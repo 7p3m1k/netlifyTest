@@ -36,7 +36,7 @@
             console.log("--------------------")
             userProfile = await resp.data;
             await console.log(userProfile);
-            $ready()
+            $ready();
         } catch(err) {
             console.log("사용자 정보 가져오기에 실패하였습니다. = " + nickname);
             $goto($url('_fallback'));
@@ -54,12 +54,12 @@
 </script>
 
 
-<svelte:head>
+<!-- <svelte:head>
     <title>{userProfile.name}</title>
     <meta property="og:title" content={userProfile.name}/>
     <meta property="og:image" content={userProfile.photo_url}/>
     <meta property="og:description" content={userProfile.note}/>
-</svelte:head>
+</svelte:head> -->
 
 <Header />
 {#if userProfile}

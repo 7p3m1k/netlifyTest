@@ -15,17 +15,18 @@
     let isOpened = false;
     let projectWrapper;
 
-    const getProjectDetail = () => {
-        axios.get(`${myProcess.env.FB_API_URL}/getProjectDetail?nickname=${nickname}&projectId=${projectId}`)
-            .then(resp => {
-                projectDetail = resp.data;
-            }).catch(() =>{
-                console.log("프로젝트 정보 가져오기에 실패하였습니다.");
-                // window.location.href = `${myProcess.env.ROOT_URL}/@${nickname}`;
-                // navigate(`@${nickname}`, { replace: false });
-            }
-        );
-    }
+    const getProjectDetail = async() => {
+        try {
+            const resp = await axios({
+                method: 'get',
+                url: `${myProcess.env.FB_API_URL}/getProjectDetail?nickname=${nickname}&projectId=${projectId}`,
+            });
+            projectDetail = await resp.data;
+        } catch(err) {
+            console.log("프로젝트 정보 가져오기에 실패하였습니다.");
+            // window.location.href = `${myProcess.env.ROOT_URL}/@${nickname}`;
+        };
+    };
 
     const showProjectAll = async () => {
         if (!projectDetail) {
