@@ -1,17 +1,20 @@
 <script>
     import { onMount }          from 'svelte';
-    import { goto, url, ready, params }        from '@roxi/routify'
-    import Header               from '../../components/Header.svelte'
+    import { goto, url, ready, params }        from '@roxi/routify';
+    import Header               from '../../components/Header.svelte';
     import SectionWrapper       from '../../components/SectionWrapper.svelte';
     import UserProject          from '../../Components/UserProject.svelte';
     import UserProfileSection   from '../../Components/Sections/UserProfileSection.svelte';
     import UserBrandListSection from '../../Components/Sections/UserBrandListSection.svelte';
     import LoadingSpinner       from '../../components/LoadingSpinner.svelte';
-    import axios            from "axios";
+    import axios                from "axios";
 
     let nickname = $params.userId.slice(1);
 
     let userProfile;
+
+    let userMetaInfo = {};
+    
     let userProjects;
 
     const getRecentProjects = () => {
@@ -27,16 +30,16 @@
         );
     }
 
+
     const getUserInfo = async() => {
         try {
             const resp = await axios({
                 method: 'get',
                 url: `${myProcess.env.FB_API_URL}/getUserBasicInfo?nickname=${nickname}`,
             });
-            console.log("--------------------")
+
             userProfile = await resp.data;
-            await console.log(userProfile);
-            $ready()
+
         } catch(err) {
             console.log("사용자 정보 가져오기에 실패하였습니다. = " + nickname);
             $goto($url('_fallback'));
@@ -45,20 +48,36 @@
         }
     };
 
+    const getUserMeta = async() => {
+        try {
+            const resp = await axios({
+                method: 'get',
+                url: `${myProcess.env.FB_API_URL}/getUserBasicInfo?nickname=${nickname}`,
+            });
+
+            userMetaInfo = await resp.data;
+            $ready()
+
+        } catch(err) {
+            console.log("사용자 정보 가져오기에 실패하였습니다. = " + nickname);
+            $goto($url('_fallback'));
+        }
+    };
+
 
     onMount( () => {
+        getUserMeta();
         getUserInfo();
         getRecentProjects();
     });
 
 </script>
 
-
 <svelte:head>
-    <title>{userProfile.name}</title>
-    <meta property="og:title" content={userProfile.name}/>
-    <meta property="og:image" content={userProfile.photo_url}/>
-    <meta property="og:description" content={userProfile.note}/>
+    <title>{userMetaInfo.name}</title>
+    <meta property="og:title" content={userMetaInfo.name}/>
+    <meta property="og:image" content={userMetaInfo.photo_url}/>
+    <meta property="og:description" content={userMetaInfo.note}/>
 </svelte:head>
 
 <Header />
