@@ -10,7 +10,10 @@ import getConfig from '@roxi/routify/lib/utils/config'
 import autoPreprocess from 'svelte-preprocess'
 import postcssImport from 'postcss-import'
 import { injectManifest } from 'rollup-plugin-workbox'
+import dotenv               from 'dotenv'
+import replace 				from '@rollup/plugin-replace';
 
+dotenv.config();
 
 const { distDir } = getConfig() // use Routify's distDir for SSOT
 const assetsDir = 'assets'
@@ -67,6 +70,20 @@ export default {
             dedupe: importee => !!importee.match(/svelte(\/|$)/)
         }),
         commonjs(),
+        replace({
+            myProcess: JSON.stringify({
+                env: {
+                    NODE_ENV: process.env.BUILD,
+                    TOKEN_KEY: process.env.TOKEN_KEY,
+                    SERVER_API: process.env.BUILD === "production" ? process.env.SERVER_API_PROD : process.env.SERVER_API_DEV,
+                    IMG_URL: process.env.IMG_URL,
+                    T_STAGE: process.env.T_STAGE,
+                    FB_API_URL: process.env.FB_API_URL,
+                    BRI_URL: process.env.BRI_URL,
+                    ROOT_URL: process.env.BUILD === "production" ? process.env.ROOT_URL_PROD : process.env.ROOT_URL_DEV,
+                }
+            }),
+        }),
 
         production && terser(),
         !production && !isNollup && serve(),

@@ -27,6 +27,7 @@
     "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-node-resolve": "^10.0.0",
     "@roxi/routify": "^2.12.4",
+    "axios": "^0.21.1",
     "cross-env": "^7.0.2",
     "eslint": "^7.20.0",
     "eslint-plugin-svelte3": "^3.1.1",

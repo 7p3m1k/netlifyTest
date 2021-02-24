@@ -1,24 +1,33 @@
 <script>
-    import { url } from '@roxi/routify'
+    import Footer   from '../components/Footer.svelte';
+    import Header   from '../components/Header.svelte';
 </script>
 
-<style>
-  .huge {
-    font-size: 12rem;
-  }
-  .e404 {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
-</style>
+    <Header />
+    <div class="wrapper">
+        <h1>
+            Page Not Found.
+        </h1>
+    </div>
+    <Footer/>
 
-<div class="e404">
-  <div class="huge">404</div>
-  <div class="big">Page not found. 
-  <!-- link to the parent folder of _fallback.svelte -->
-  <a href={$url('../')}>Go back</a>
-  </div>
-</div>
+
+<style lang="scss">
+    @import 'assets/scss/common.scss'; 
+
+    .wrapper {
+        background-color: white;
+        max-width: $wrapper;
+        margin: 100px auto 0;
+        padding: 0px 30px;
+        font-size: $font-size;
+        font-family: $font-kr;
+        word-break: keep-all;;
+
+        h1 {
+            padding: 80px 0;
+            font-size: 100px;
+            margin: 0 auto;
+        }
+    }
+</style>
