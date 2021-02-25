@@ -1,5 +1,6 @@
 <script>
     import { onMount }      from 'svelte';
+    import LoadingSpinner from './LoadingSpinner.svelte';
 
     export let contentTitle;
     export let contentSummary;
@@ -15,7 +16,7 @@
         </a>
     </div>
 {:else}
-    <img class="allius-loading-gif" src="https://allius-images.s3.ap-northeast-2.amazonaws.com/static-images/loading.gif" alt="loading content">
+    <LoadingSpinner />
 {/if}
 
 

@@ -12,7 +12,7 @@
         </li>
         <li>
             <img alt="allius benefit img2" src="{myProcess.env.IMG_URL}/static-images/landing-img02.jpg">
-            <p>얼얼라이어스와 함께 새로운 길을 발견하고 실행하며 영역을 확장하도록 지원하고, 응원합니다!</p>
+            <p>얼라이어스와 함께 새로운 길을 발견하고 실행하며 영역을 확장하도록 지원하고, 응원합니다!</p>
         </li>
     </ul>
 </div>

@@ -31,24 +31,6 @@
             "link-url2" : "https://allius.io/login",
         }
     ]
-    /*
-    const setScrollAnimation = (target, x, y, dur) =>{
-        let frame = (dur/1000)*60;
-        console.log(frame);
-
-        let moveStart = setInterval(()=>{
-            let currentX = target.scrollLeft;
-            let currentY = target.scrollTop;
-
-            target.scrollTo(currentX + (x/frame), currentY + (y/frame));
-            console.log("11");
-        }, 1000/60);
-
-        let globalCool = setTimeout(()=>{
-            clearInterval(moveStart);
-        }, dur);
-    }
-    */
 
     onMount(()=>{
         startInterval = setInterval(()=>{

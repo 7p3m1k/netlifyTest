@@ -3,6 +3,7 @@
     import { onMount }      from 'svelte';
     import { slide }        from 'svelte/transition';
     import LoadingSpinner from './LoadingSpinner.svelte';
+    import { goto, url, ready, params }        from '@roxi/routify';
 
     export let nickname;
     export let userColor;
@@ -69,7 +70,7 @@
                     <ul class="collabo">
                         {#each projectDetail.collabo as item}
                             <li>
-                                <a href="https://allius.io/@{item.user_name}">
+                                    <a href={$url(`/@${item.user_name}`)}>
                                     <div class="img-box" style="background-image:url({item.img_src})"></div>
                                     <p class="collabo-name"><strong>{item.name}</strong>@{item.user_name}</p>
                                     <p class="summary">{item.summary}</p>

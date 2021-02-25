@@ -37,13 +37,11 @@
                 method: 'get',
                 url: `${myProcess.env.FB_API_URL}/getBrandList?nickname=${nickname}`,
             });
-
-            await console.log(resp.data.brand_list);
             brandList = await resp.data.brand_list;
-            await console.log(brandList);
 
         } catch(err) {
             console.log("사용자 이름 정보 가져오기에 실패하였습니다.");
+            $goto($url('/'));
         }
     };
 
@@ -60,7 +58,7 @@
     {#if brandList && userColor}
         {#each brandList as item}
             <li bind:clientWidth={boxWidth}>
-                <a href="{myProcess.env.ROOT_URL}/brand/{nickname}/{item.brand_id}">
+                <a href={$url(`/@${nickname}/${item.brand_id}`)}>
                     <img alt={item.title} src="https://firebasestorage.googleapis.com/v0/b/allius-dev.appspot.com/o/brand_icon%2FBRI-{item.brand_icon}.jpg?alt=media">
                     <p>{item.title}</p>
                 </a>

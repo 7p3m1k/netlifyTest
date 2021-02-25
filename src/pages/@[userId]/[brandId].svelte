@@ -1,82 +1,106 @@
 <script>
-    import { onMount }      from 'svelte';
+    import { onMount }              from 'svelte';
+    import axios                    from "axios";
+    import { goto, url, params, ready }        from '@roxi/routify'
+
     import TextBox                  from '../../components/TextBox.svelte';
     import Header                   from '../../components/Header.svelte';
     import SectionWrapper           from '../../components/SectionWrapper.svelte';
     import UserBrandListSection     from '../../Components/Sections/UserBrandListSection.svelte';
     import UserProject              from '../../Components/UserProject.svelte';
     import UserContent              from '../../Components/userContent.svelte';
-    import { params } from '@roxi/routify';
-    import { goto, url }        from '@roxi/routify'
-    import axios            from "axios";
-
+    import LoadingSpinner           from '../../components/LoadingSpinner.svelte';
     
-    export let nickname;
+    
     export let brandId ;
+    
+    let nickname = $params.userId.slice(1);
+    
+    let userName = "";
+    let brandMetaInfo = {};
 
-    let userName;
     let inspTextWidth;
     let brandDetail;
     let brandProjects;
 
-    const ff = () => {
-        console.log($params)
+    const getBrandDetail = async() => {
+        try {
+            const resp = await axios({
+                method: 'get',
+                url: `${myProcess.env.FB_API_URL}/getBrandDetail?nickname=${nickname}&brandId=${brandId}`,
+            });
+
+            brandDetail = await resp.data;
+        } catch(err) {
+            console.log("Brand 정보 가져오기에 실패하였습니다. = " + nickname);
+            $goto($url(`/@${nickname}`));
+        }
     }
 
-    const getBrandDetail = () => {
-        console.log(`check! >>>> name: ${nickname} & id: ${brandId}`);
-        axios.get(`${myProcess.env.FB_API_URL}/getBrandDetail?nickname=${nickname}&brandId=${brandId}`)
-            .then(resp => {
-                brandDetail = resp.data;
-            }).catch(() =>{
-                console.log("Brand 정보 가져오기에 실패하였습니다. = " + nickname);
-                // window.location.href = `${myProcess.env.ROOT_URL}/@${nickname}`;
-                $goto($url('pages/index'));
-                
-                //navigate(`/@${nickname}`, { replace: false });
-            }
-        );
-    }
+    const getUserName = async () => {
+        try {
+            const resp = await axios({
+                method: 'get',
+                url: `${myProcess.env.FB_API_URL}/getUserName?nickname=${nickname}`,
+            });
+            userName = await resp.data.name;
+            $ready()
+        } catch(err) {
+            console.log("사용자 이름 정보 가져오기에 실패하였습니다. = " + nickname);
+            $goto($url(`/@${nickname}`));
+        }
+    };
 
-    const getUserName = () => {
-        axios.get(`${myProcess.env.FB_API_URL}/getUserName?nickname=${nickname}`)
-            .then(resp => {
-                userName = resp.data.name;
-            }).catch(() =>{
-                console.log("사용자 이름 정보 가져오기에 실패하였습니다. = " + nickname);
-                window.location.href = `${myProcess.env.ROOT_URL}/@${nickname}`;
-                //navigate(`/@${nickname}`, { replace: false });
-            }
-        );
-    }
+    const getBrandProjectAll = async () => {
+        try {
+            const resp = await axios({
+                method: 'get',
+                url: `${myProcess.env.FB_API_URL}/getBrandProjectAll?nickname=${nickname}&brandId=${brandId}`,
+            });
+            brandProjects = await resp.data.project_list;
+        } catch(err) {
+            console.log("프로젝트 정보 가져오기에 실패하였습니다. = " + nickname);
+            $goto($url(`/@${nickname}`));
+        }
+    };
 
-    const getBrandProjectAll = () => {
-        axios.get(`${myProcess.env.FB_API_URL}/getBrandProjectAll?nickname=${nickname}&brandId=${brandId}`)
-            .then(resp => {
-                brandProjects = resp.data.project_list;
-            }).catch(() =>{
-                console.log("프로젝트 정보 가져오기에 실패하였습니다. = " + nickname);
-                window.location.href = `${myProcess.env.ROOT_URL}/@${nickname}`;
-                // navigate(`/@${nickname}`, { replace: false });
-            }
-        );
-    }
+    const getBrandMeta = async() => {
+        try {
+            const resp = await axios({
+                method: 'get',
+                url: `${myProcess.env.FB_API_URL}/getBrandDetail?nickname=${nickname}&brandId=${brandId}`,
+            });
+
+            brandMetaInfo = await resp.data;
+            $ready()
+
+        } catch(err) {
+            console.log("사용자 정보 가져오기에 실패하였습니다. = " + nickname);
+        }
+    };
 
     onMount(() => {
+        getBrandMeta();
         getUserName();
         getBrandDetail();
         getBrandProjectAll();
-        ff();
     })
 
-
 </script>
+
+<svelte:head>
+    <title>{userName} : {brandMetaInfo.title}</title>
+    <meta property="og:title" content="{userName} : {brandMetaInfo.title}"/>
+    <meta property="og:image" content="https://firebasestorage.googleapis.com/v0/b/allius-dev.appspot.com/o/brand_icon%2FBRI-{brandMetaInfo.photo_url}.jpg?alt=media"/>
+    <meta property="og:description" content="{brandMetaInfo.why}"/>
+</svelte:head>
 
 <Header />
 {#if brandDetail && userName}
     <SectionWrapper className="section-top">
         <div class="brand-icon" style="background-image:url(https://firebasestorage.googleapis.com/v0/b/allius-dev.appspot.com/o/brand_icon%2FBRI-{brandDetail.brand_icon}.jpg?alt=media)"></div>
-        <p class="user-info">{userName}(<a href="{myProcess.env.ROOT_URL}/@{nickname}">@{nickname}</a>)'s brand</p>
+        <p class="user-info">{userName}(<a href={$url(`/@${nickname}`)} class="link-to">@{nickname}</a>)'s brand</p>
+        
         <h1 class="brand-title">{brandDetail.title}</h1>
     </SectionWrapper>
     <SectionWrapper>
@@ -149,7 +173,7 @@
             </ul>
         {/if}
         <div class="back-to-profolio">
-            <a href="{$url(`/@${nickname}`)}">{userName} 님의 프로폴리오로 돌아가기</a>
+            <a href={$url(`/@${nickname}`)} class="link-to">{userName} 님의 프로폴리오로 돌아가기</a>
         </div>
         <p class="sub-title">{userName}'s Brand<span>클릭하여 더 자세히 살펴보세요-! </span></p>
         <UserBrandListSection 
@@ -166,7 +190,7 @@
         <p class="copyright">© realwesen, Inc. All Rights Reserved.</p>
     </SectionWrapper>
 {:else}
-    <img class="allius-loading-gif" src="https://allius-images.s3.ap-northeast-2.amazonaws.com/static-images/loading.gif" alt="loading content">
+    <LoadingSpinner />
 {/if}
 
 <style lang="scss">

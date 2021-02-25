@@ -1,5 +1,6 @@
 <script>
     import { onMount, afterUpdate }      from 'svelte';
+    import LoadingSpinner from '../LoadingSpinner.svelte';
     import TextBox          from '../TextBox.svelte';
 
     export let nickname;
@@ -82,7 +83,7 @@
     {/if}
     </ul>
 {:else}
-    <img class="allius-loading-gif" src="https://allius-images.s3.ap-northeast-2.amazonaws.com/static-images/loading.gif" alt="loading content">
+    <LoadingSpinner />
 {/if}
 </div>
 

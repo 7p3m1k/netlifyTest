@@ -1,31 +1,38 @@
 <script>
     import { onMount }          from 'svelte';
-    import { goto, url, ready, params }        from '@roxi/routify'
-    import Header               from '../../components/Header.svelte'
+    import { goto, url, ready, params }        from '@roxi/routify';
+    import Header               from '../../components/Header.svelte';
     import SectionWrapper       from '../../components/SectionWrapper.svelte';
     import UserProject          from '../../Components/UserProject.svelte';
     import UserProfileSection   from '../../Components/Sections/UserProfileSection.svelte';
     import UserBrandListSection from '../../Components/Sections/UserBrandListSection.svelte';
     import LoadingSpinner       from '../../components/LoadingSpinner.svelte';
-    import axios            from "axios";
+    import axios                from "axios";
 
     let nickname = $params.userId.slice(1);
 
     let userProfile;
+
+    let userMetaInfo = {};
+    
     let userProjects;
 
-    const getRecentProjects = () => {
-        axios.get(`${myProcess.env.FB_API_URL}/getProjectRecent5?nickname=${nickname}`)
-            .then(resp => {
-                userProjects = resp.data.project_list;
-                console.log(userProjects)
-            })
-            .catch(() =>{
-                console.log("프로젝트 정보 가져오기에 실패하였습니다. = " + nickname);
-                $goto($url('_fallback'));
+    const getRecentProjects = async () => {
+        try {
+            const resp = await axios({
+                method: 'get',
+                url: `${myProcess.env.FB_API_URL}/getProjectRecent5?nickname=${nickname}`,
+            });
+
+            userProjects = await resp.data.project_list;
+
+        } catch(err) {
+            if (err.response && err.reponse.status === 400){
+                $goto($url('/_fallback'));
             }
-        );
+        }
     }
+
 
     const getUserInfo = async() => {
         try {
@@ -33,33 +40,47 @@
                 method: 'get',
                 url: `${myProcess.env.FB_API_URL}/getUserBasicInfo?nickname=${nickname}`,
             });
-            console.log("--------------------")
+
             userProfile = await resp.data;
-            await console.log(userProfile);
-            $ready();
         } catch(err) {
             console.log("사용자 정보 가져오기에 실패하였습니다. = " + nickname);
-            $goto($url('_fallback'));
+            $goto($url('/_fallback'));
         } finally {
             userProfile["userColor"] = "#1ecce4";
         }
     };
 
+    const getUserMeta = async() => {
+        try {
+            const resp = await axios({
+                method: 'get',
+                url: `${myProcess.env.FB_API_URL}/getUserBasicInfo?nickname=${nickname}`,
+            });
+
+            userMetaInfo = await resp.data;
+            $ready()
+
+        } catch(err) {
+            console.log("사용자 정보 가져오기에 실패하였습니다. = " + nickname);
+            $goto($url('/_fallback'));
+        }
+    };
+
 
     onMount( () => {
+        getUserMeta();
         getUserInfo();
         getRecentProjects();
     });
 
 </script>
 
-
-<!-- <svelte:head>
-    <title>{userProfile.name}</title>
-    <meta property="og:title" content={userProfile.name}/>
-    <meta property="og:image" content={userProfile.photo_url}/>
-    <meta property="og:description" content={userProfile.note}/>
-</svelte:head> -->
+<svelte:head>
+    <title>{userMetaInfo.name}</title>
+    <meta property="og:title" content={userMetaInfo.name}/>
+    <meta property="og:image" content={userMetaInfo.photo_url}/>
+    <meta property="og:description" content={userMetaInfo.note}/>
+</svelte:head>
 
 <Header />
 {#if userProfile}
@@ -110,7 +131,7 @@
         <p class="copyright">© realwesen, Inc. All Rights Reserved.</p>
     </SectionWrapper>
 {:else}
-    <img class="allius-loading-gif" src="https://allius-images.s3.ap-northeast-2.amazonaws.com/static-images/loading.gif" alt="loading content">
+    <LoadingSpinner />
 {/if}
 
 

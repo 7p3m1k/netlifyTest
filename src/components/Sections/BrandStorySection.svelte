@@ -35,19 +35,21 @@
         scrollX = brandStoryList.scrollLeft;
     }
 
-    onMount(() => {
+    onMount(async () => {
         scrollX = 0;
-        axios.get(`https://dkjss7qyb8.execute-api.ap-northeast-2.amazonaws.com/dev/page-management/brand-stories/list/landing`)
-            .then(resp => {
-                brStories = resp.data["brand_stories_list"].sort(mixArray);
+        try {
+            const resp = await axios({
+            method: 'get',
+            url: (`https://dkjss7qyb8.execute-api.ap-northeast-2.amazonaws.com/dev/page-management/brand-stories/list/landing`)
+        })
+
+            brStories = await resp.data["brand_stories_list"].sort(mixArray);
                 if (scrollWidth > wrapperWidth) {
                     isOverFlow = true;
                 }
-            }).catch(()=>{
-                console.log("catch!!!");
-            }
-        );
-        
+        } catch(err) {
+            $goto($url('/_fallback'));
+        }
     });
 
 </script>
