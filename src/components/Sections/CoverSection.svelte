@@ -97,7 +97,7 @@
             }
 
             .title {
-                font-family: $font-kr;
+                font-family: var(--font-kr);
                 align-self : center;
                 
 
@@ -108,7 +108,7 @@
 
                 a.btn-go {
                     display: inline-block;
-                    color:$theme-color2;
+                    color:var(--theme-color2);
                     border-radius: 30px;
                     font-size: 0.8em;
                     font-weight: 300;
@@ -124,13 +124,13 @@
                     font-weight: 700;
                     display: block;
                     line-height: 1.2em;
-                    color: $sub-color1;
+                    color: var(--sub-color1);
                     margin-bottom: 0;
                 }
 
                 :global(p.cover-title-thin) {
                     font-size: 0.9em;
-                    color: $theme-color1;
+                    color: var(--theme-color1);
                     border: none;
                     display: block;
                 }

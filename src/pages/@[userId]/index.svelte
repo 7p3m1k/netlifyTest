@@ -144,14 +144,14 @@
 
         strong {
             font-size: 1.3em;
-            color: $sub-color1;
+            color: var(--sub-color1);
             display: inline-block;
         }
 
         span {
             margin-left: 20px;
             font-size: 0.8em;
-            color: $theme-color1;
+            color: var(--theme-color1);
             display: inline-block;
 
             &.end {
@@ -165,11 +165,11 @@
         font-weight: 400;
         text-align: center;
         display: block;
-        color: $sub-color1;
+        color: var(--sub-color1);
         transition: 0.2s all;
 
         &:hover {
-            color: $theme-color1;
+            color: var(--theme-color1);
         }
     }
 

@@ -147,7 +147,7 @@
 
                 span {
                     font-size: 0.6em;
-                    color: $theme-color1;
+                    color: var(--theme-color1);
                     display: block;
                     margin-bottom: 3px;
                 }

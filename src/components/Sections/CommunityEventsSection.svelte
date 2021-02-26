@@ -109,7 +109,7 @@
                         p {
                             display: inline-block;
                             color: white;
-                            background-color: $theme-color1;
+                            background-color: var(--theme-color1);
                             padding: 4px 20px;
                             border-radius: 30px;
                             text-align: center;
@@ -120,7 +120,7 @@
                     &.list-item {
                         font-size: 0.8em;
                         padding: 10px 3px;
-                        color: $sub-color1;
+                        color: var(--sub-color1);
                         border-top: 1px solid #cccccc;
                         background-color: white;
 
@@ -131,7 +131,7 @@
                         .event-date {
                             display: block;
                             font-size: 0.8em;
-                            color: $theme-color1;
+                            color: var(--theme-color1);
                         }
 
                         &:hover {
@@ -143,14 +143,14 @@
                     &.selected {
                         font-size: 0.8em;
                         padding: 0px 3px 10px;
-                        color: $sub-color1;
+                        color: var(--sub-color1);
                         background-color:white;
                         overflow: hidden;
 
                         a {
                             display: inline-block;
                             padding: 1px 12px;
-                            background-color: $theme-color1;
+                            background-color: var(--theme-color1);
                             border-radius: 10px;
                             color: white;
                             font-size: 0.7em;

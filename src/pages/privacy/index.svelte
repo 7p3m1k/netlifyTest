@@ -26,19 +26,19 @@
 
     .sections {
         background-color: white;
-        max-width: $wrapper;
+        max-width: var(--wrapper);
         margin: 100px auto 0;
         padding: 0px 30px;
-        font-size: $font-size * 0.8;
-        font-family: $font-kr;
+        font-size: calc(var(--font-size) * 0.8);
+        font-family: var(--font-kr);
         word-break: keep-all;
 
         @include respond-to('w1000') {
-            font-size: $font-size * 0.75;
+            font-size: calc(var(--font-size) * 0.75);
         }
 
         @include respond-to('w800') {
-            font-size: $font-size * 0.7;
+            font-size: calc(var(--font-size) * 0.7);
         }
 
         @include respond-to('w600') {

@@ -106,13 +106,13 @@
                     display: block;
                     font-weight: 700;
                     background-color: white;
-                    border: 4px solid $theme-color1;
+                    border: 4px solid ;
                     border-radius: 12px;
                     padding: 10px;
                     width : 150px;
                     height: 150px;
                     font-size : 1em;
-                    color: $theme-color1;
+                    color: var(--theme-color1);
                     
 
                     @include respond-to('w400') {
@@ -125,12 +125,13 @@
                     line-height: 1.1em;
 
                     span {
-                        color : lighten($theme-color1, 30%);
+                        /* color : lighten(var(--theme-color1), 30%); */
+                        color : hsl(var(--theme-color1), 30%);
                         font-size: 0.8em;
 
                         &.coming {
                             display: block;
-                            color: $theme-color1;
+                            color: var(--theme-color1);
                             margin: 5px 0;
                         }
                     }
@@ -140,7 +141,7 @@
             li.finished {
 
                 a {
-                    background-color: $theme-color1;
+                    background-color: var(--theme-color1);
                     color: white;
 
                     span {

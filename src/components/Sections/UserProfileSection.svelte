@@ -118,7 +118,7 @@
         }
         
         h3 {
-            color: $sub-color1;
+            color: var(--sub-color1);
             font-size: 1em;
             text-align: center;
             margin-bottom: 10px;

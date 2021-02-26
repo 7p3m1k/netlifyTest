@@ -12,11 +12,11 @@
 
     .section-wrapper {
         background-color: white;
-        max-width: $wrapper;
+        max-width: var(--wrapper);
         margin: 0px auto 130px;
         padding: 0px 30px;
-        font-size: $font-size;
-        font-family: $font-kr;
+        font-size: var(--font-size);
+        font-family: var(--font-kr);
         word-break: keep-all;
 
         &.section-top {
@@ -35,11 +35,11 @@
         }
 
         @include respond-to('w1000') {
-            font-size: $font-size * 0.9;
+            font-size: calc(var(--font-size) * 0.9);
         }
 
         @include respond-to('w800') {
-            font-size: $font-size * 0.8;
+            font-size: calc((var(--font-size) * 0.8));
             margin-bottom: 100px;
         }
 
@@ -47,22 +47,5 @@
             padding: 0 12px;
             margin-bottom: 70px;
         }
-/* 
-        .section-title {
-            font-size: 1em;
-            font-weight: 700;
-            color: $theme-color1;
-        }
-
-        .section-description {
-            font-size: 0.8em;
-            color: $sub-color1;
-            margin-top: 6px;
-
-            @include respond-to('w600') {
-                width: 100%;
-            }
-        } */
     }
-
 </style>

@@ -220,11 +220,11 @@
     .user-info {
         font-size: 0.8em;
         text-align: center;
-        color: $theme-color1;
+        color: var(--theme-color1);
         font-weight: 700;
 
         a {
-            color: $theme-color1;
+            color: var(--theme-color1);
             display: inline-block;
             margin: 0 4px;
             font-weight: 400;
@@ -242,7 +242,7 @@
 
     .sub-title {
         font-size: 0.8em;
-        color: $theme-color1;
+        color: var(--theme-color1);
         font-weight: 700;
         margin: 70px auto 10px;
 
@@ -264,7 +264,7 @@
             margin-right: 15px;
 
             &.ing {
-                color: $theme-color1;
+                color: var(--theme-color1);
             }
 
             &.end {
@@ -272,7 +272,7 @@
             }
 
             &.content {
-                color: $theme-color2;
+                color: var(--theme-color2);
             }
         }
 
@@ -313,7 +313,7 @@
                 display: block;
                 flex-grow: 0;
                 padding: 2px 20px;
-                background-color: $theme-color1;
+                background-color: var(--theme-color1);
                 font-size: 0.6em;
                 color: white;
                 transition: 0.2s all;
@@ -334,7 +334,7 @@
     .content-array-type {
         li {
             font-size: 0.8em;
-            color: $sub-color1;
+            color: var(--sub-color1);
         }
     }
 
@@ -345,12 +345,12 @@
 
         a {
             display: inline-block;
-            color: $theme-color2;
+            color: var(--theme-color2);
             font-size: 0.8em;
             transition: 0.2s all;
 
             &:hover {
-                color: darken($theme-color2, 20%);
+                color: hsl(var(--theme-color2), 0%, 20%);
                 cursor: pointer;
             }
         }
@@ -361,11 +361,11 @@
         font-weight: 400;
         text-align: center;
         display: block;
-        color: $sub-color1;
+        color: var(--sub-color1);
         transition: 0.2s all;
 
         &:hover {
-            color: $theme-color1;
+            color: var(--theme-color1);
         }
     }
 

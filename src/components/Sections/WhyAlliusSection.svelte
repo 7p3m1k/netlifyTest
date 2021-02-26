@@ -21,11 +21,11 @@
     @import 'assets/scss/common.scss'; 
 
     .why-wrapper {
-        background-color: $sub-color1;
+        background-color: var(--sub-color1);
         max-width: none;
 
         .why-wrapper {
-            max-width: $wrapper;
+            max-width: var(--wrapper);
             margin: 0 auto;
             padding: 0 30px;
 
@@ -34,7 +34,7 @@
             }
 
             .section-description {
-                color: $sub-color2;
+                color: var(--sub-color2);
             }
 
             ul {

@@ -2,20 +2,31 @@
 
 $imgUrl: "https://allius-images.s3.ap-northeast-2.amazonaws.com";
 
-$font-kr : 'Noto Sans KR', sans-serif;
-$font-size : 22px;
-$wrapper : 1000px;
-$theme-color1: #1ECCE4;
-$theme-color2: #FF7C00;
-$sub-color1: #3E3C49;
-$sub-color2: #FDFAF3;
+:root {
+
+  --font-kr : 'Noto Sans KR', sans-serif;
+  --font-size : 22px;
+  --wrapper : 1000px;
+  --theme-color1: #1ECCE4;
+  --theme-color2: #FF7C00;
+  --sub-color1: #3E3C49;
+  --sub-color2: #FDFAF3;
+
+}
+// $font-kr : 'Noto Sans KR', sans-serif;
+// $font-size : 22px;
+// $wrapper : 1000px;
+// $theme-color1: #1ECCE4;
+// $theme-color2: #FF7C00;
+// $sub-color1: #3E3C49;
+// $sub-color2: #FDFAF3;
 
 
 $breakpoints: (
   'w400': (max-width: 400px),
   'w600': (max-width: 600px),
   'w800': (max-width: 800px),
-  'w1000': (max-width: $wrapper),
+  'w1000': (max-width: 1000px),
 );
 
 @mixin respond-to($breakpoint) {
@@ -33,6 +44,6 @@ $breakpoints: (
     }
   } @else {
     @error 'No value found for `#{$breakpoint}`. '
-         + 'Please make sure it is defined in `$breakpoints` map.';
+        + 'Please make sure it is defined in `$breakpoints` map.';
   }
 }

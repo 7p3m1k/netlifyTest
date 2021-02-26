@@ -24,7 +24,7 @@
     @import '../assets/scss/common.scss'; 
 
     .project-wrapper {
-        border-left-color: $theme-color2;
+        border-left-color: var(--theme-color2);
         scroll-behavior: smooth;
         padding: 6px 0 6px 30px;
         border-left-width: 5px;
@@ -43,7 +43,7 @@
 
             .project-title {
                 font-size: 0.9em;
-                color: $theme-color2;
+                color: var(--theme-color2);
                 margin-bottom: 6px;
             }
 

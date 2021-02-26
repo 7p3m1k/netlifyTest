@@ -45,7 +45,7 @@
 
         .header-wrapper {
             margin: 0 auto;
-            max-width: $wrapper;
+            max-width: var(--wrapper);
             padding: 12px 30px;
             display: flex;
             justify-content: space-between;
@@ -66,14 +66,14 @@
             }
 
             li a {
-                font-family: $font-kr;
+                font-family: var(--font-kr);
                 font-size: 12px;
                 display: block;
                 float: right;
                 padding: 4px 12px;
                 border-radius: 4px;
-                color: $theme-color1;
-                border: 1px solid $theme-color1;
+                color: var(--theme-color1);
+                border: 1px solid var(--theme-color1);
             }
         }
     }

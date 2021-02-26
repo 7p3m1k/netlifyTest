@@ -20,11 +20,11 @@
     @import '../assets/scss/common.scss';
 
     .footer {
-        max-width: $wrapper;
+        max-width: var(--wrapper);
         margin: 100px auto 0;
         padding: 0 30px 50px;
-        color: $sub-color1;
-        font-family: $font-kr;
+        color: var(--sub-color1);
+        font-family: var(--font-kr);
         font-size: 16px;
 
         @include respond-to('w600') {
@@ -32,7 +32,7 @@
         }
         
         .company-name {
-            border-top: 2px solid $sub-color1;
+            border-top: 2px solid var(--sub-color1);;
             padding-top: 20px;
             font-weight: 700;
         }
@@ -47,7 +47,7 @@
             .link-to {
                 text-decoration: none;
                 font-size: 0.8em;
-                color: $theme-color1;
+                color: var(--theme-color1);
                 display: inline-block;
                 margin-right: 20px;
             }

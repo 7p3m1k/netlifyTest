@@ -148,14 +148,14 @@
                 margin-top: 10px;
                 font-size: 0.6em;
                 padding: 2px 16px;
-                border: 1px solid $theme-color1;
+                border: 1px solid var(--theme-color1);
                 border-radius: 20px;
                 display: inline-block;
             }
 
             .sub-title {
                 font-size: 0.8em;
-                color: $theme-color1;
+                color: var(--theme-color1);
                 font-weight: 700;
                 margin: 20px auto 10px;
 
@@ -182,7 +182,7 @@
                     a {
                         padding: 10px ;
                         display: block;
-                        border: 1px solid $sub-color1;
+                        border: 1px solid var(--sub-color1);
                         border-radius: 4px;
 
                         .img-box {
@@ -199,14 +199,14 @@
                         .collabo-name {
                             margin-left: 60px;
                             font-size: 12px;
-                            color: $theme-color1;
+                            color: var(--theme-color1);
                             font-weight: 400;
 
                             strong {
                                 display: inline-block;
                                 margin-right: 10px;
                                 font-size: 15px;
-                                color: $sub-color1;
+                                color: var(--sub-color1);
                                 font-weight: 700;
                             }
                         }
@@ -244,7 +244,7 @@
             .content-array-type {
                 li {
                     font-size: 0.8em;
-                    color: $sub-color1;
+                    color: var(--sub-color1);
                 }
             }
 
@@ -252,7 +252,7 @@
                 display: block;
                 border-style: none;
                 background-color: white;;
-                color: $theme-color2;
+                color: var(--theme-color2);
                 margin-top: 50px;
                 font-size: 0.8em;
                 padding-bottom: 30px;

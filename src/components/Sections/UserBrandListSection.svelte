@@ -99,7 +99,7 @@
                     height: 280px;
                     flex: 0 0 auto;
                     display: block;
-                    border : 1px solid $sub-color1;
+                    border : 1px solid var(--sub-color1);
                     border-radius : 12px;
                     margin-right: 15px;
                     overflow: hidden;
@@ -121,7 +121,7 @@
 
                     p {
                         font-size: 0.7em;
-                        color: $sub-color1;
+                        color: var(--sub-color1);
                         text-align: center;
                         padding: 0 8px;
                         font-weight: 900;

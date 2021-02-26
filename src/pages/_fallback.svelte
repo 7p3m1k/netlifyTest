@@ -17,11 +17,11 @@
 
     .wrapper {
         background-color: white;
-        max-width: $wrapper;
+        max-width: var(--wrapper);
         margin: 100px auto 0;
         padding: 0px 30px;
-        font-size: $font-size;
-        font-family: $font-kr;
+        font-size: var(--font-size);
+        font-family: var(--font-kr);
         word-break: keep-all;;
 
         h1 {

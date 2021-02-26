@@ -87,13 +87,13 @@
         text-align: center;
         font-size: 1.2em;
         font-weight: 700;
-        color: $theme-color1;
+        color: var(--theme-color1);
     }
 
     .section-description {
         text-align: center;
         font-size: 0.8em;
-        color: $sub-color1;
+        color: var(--sub-color1);
         margin-top: 6px;
 
         @include respond-to('w600') {
