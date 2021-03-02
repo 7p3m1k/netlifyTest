@@ -4,7 +4,7 @@
   "description": "",
   "main": "ssr.js",
   "scripts": {
-    "build": "node utils/build.js",
+    "build": "routify -b && rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
