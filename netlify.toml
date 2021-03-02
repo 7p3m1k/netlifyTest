@@ -1,8 +1,9 @@
 
 [build]
-  publish = "dist"
-  functions = "api/netlify"
+  publish = "/opt/build/repo/dist"
+  functions = "/opt/build/repo/api/netlify"
   command = "npm run build && cd api/netlify && npm run build"
+  commandOrigin= "config"
 
 # Dev doesn't work yet. Any takers?
 # [dev]  
