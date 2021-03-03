@@ -44,7 +44,5 @@
         @include respond-to('w600') {
             padding: 0 12px;
         }
-
     }
-
 </style>

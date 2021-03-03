@@ -1,4 +1,4 @@
-<script context="module">
+<!-- <script context="module">
     const importScript = src => {
         return new Promise((resolve, reject) => {
             let s = document.createElement('script')
@@ -35,9 +35,9 @@
 
     import { writable } from 'svelte/store'
     let isResourceLoadedStore = writable(false)
-</script>
+</script> -->
 
-<script lang="typescript">
+<!-- <script lang="typescript">
     // @ts-ignore
     import * as Utils from '../utils'
     import { Writable } from 'svelte/store'
@@ -117,28 +117,28 @@
     Utils.Svelte.onDestroy(() => {
         if (swiper && swiper.destroy) swiper.destroy()
     })
-</script>
+</script> -->
 
 <!-- Swiper -->
-<div class="swiper-container {css.container}" bind:this={element}>
+<!-- <div class="swiper-container {css.container}" bind:this={element}>
     <div class="swiper-wrapper {css.wrapper}">
         <slot />
-    </div>
+    </div> -->
     <!-- Add Arrows -->
-    {#if useNextButton}
+    <!-- {#if useNextButton}
         <div class="swiper-button-next {css.nextButton}" />
     {/if}
     {#if usePrevButton}
         <div class="swiper-button-prev {css.prevButton}" />
     {/if}
-</div>
+</div> -->
 
 <!-- Add Pagination -->
-{#if usePagination}
+<!-- {#if usePagination}
     <div class="swiper-pagination" />
-{/if}
+{/if} -->
 
-<style>
+<!-- <style>
     .swiper-container {
         position: relative;
         width: 100%;
@@ -151,4 +151,4 @@
         margin-right: auto;
         padding-top: 5px;
     }
-</style>
+</style> -->

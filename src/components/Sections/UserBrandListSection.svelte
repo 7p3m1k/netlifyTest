@@ -2,7 +2,6 @@
 
     import { onMount, afterUpdate } from 'svelte';  
     import LoadingSpinner from '../LoadingSpinner.svelte';
-    import TextBox                  from '../TextBox.svelte';
     import { goto, url }        from '@roxi/routify'
     import axios from 'axios';
 

@@ -29,7 +29,6 @@
                 method: 'get',
                 url: `${myProcess.env.FB_API_URL}/getBrandDetail?nickname=${nickname}&brandId=${brandId}`,
             });
-
             brandDetail = await resp.data;
         } catch(err) {
             console.log("Brand 정보 가져오기에 실패하였습니다. = " + nickname);
@@ -70,10 +69,8 @@
                 method: 'get',
                 url: `${myProcess.env.FB_API_URL}/getBrandDetail?nickname=${nickname}&brandId=${brandId}`,
             });
-
             brandMetaInfo = await resp.data;
             $ready()
-
         } catch(err) {
             console.log("사용자 정보 가져오기에 실패하였습니다. = " + nickname);
         }

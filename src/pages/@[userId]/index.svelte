@@ -8,6 +8,7 @@
     import UserBrandListSection from '../../Components/Sections/UserBrandListSection.svelte';
     import LoadingSpinner       from '../../components/LoadingSpinner.svelte';
     import axios                from "axios";
+    import * as svelte from 'svelte';
 
     let nickname = $params.userId.slice(1);
 

@@ -48,7 +48,7 @@
 
 </script>
 
-{#if projectTitle && projectId }
+{#if projectTitle && projectId && userColor}
     <div class={isOpened? "project-wrapper opened":"project-wrapper not-opened"} style={projectStatus==="ing"? `border-left-color:${userColor}`: ""} bind:this={projectWrapper}>
         <div class="summary-wrapper" on:click={()=>showProjectAll()}>
             <h3 class="project-title" style={projectStatus==="ing"? `color:${userColor}`: ""}>{projectTitle}</h3>
