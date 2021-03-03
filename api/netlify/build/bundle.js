@@ -2974,7 +2974,7 @@
     }, writeMeta(t7, e8) {
       const n7 = document.getElementsByTagName("head")[0], o7 = t7.match(/(.+)\:/), r7 = o7 && o7[1] || "plain", {propField: i7, valueField: s7} = ue.services[r7] || ue.services.plain, a7 = document.querySelector(`meta[${i7}='${t7}']`);
       a7 && a7.remove();
-      const c7 = document.createElement("meta");
+      const c7 = document.("meta");
       c7.setAttribute(i7, t7), c7.setAttribute(s7, e8), c7.setAttribute("data-origin", "routify"), n7.appendChild(c7);
     }, set(t7, e8) {
       le2.plugins.forEach((n7) => {
