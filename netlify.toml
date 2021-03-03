@@ -1,8 +1,7 @@
 
 [build]
-  publish = "dist"
   functions = "api/netlify"
-  command = "npm run build"
+  command = "npm run build:app"
 
 # Dev doesn't work yet. Any takers?
 # [dev]  
