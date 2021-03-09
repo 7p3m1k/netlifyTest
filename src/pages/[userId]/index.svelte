@@ -9,12 +9,7 @@
     import UserProfileSection   from '../../Components/Sections/UserProfileSection.svelte';
     import UserBrandListSection from '../../Components/Sections/UserBrandListSection.svelte';
     import LoadingSpinner       from '../../components/LoadingSpinner.svelte';
-<<<<<<< HEAD:src/pages/@[userId]/index.svelte
-    import axios                from "axios";
-    import * as svelte from 'svelte';
-=======
->>>>>>> c86e03cabd48070febcaf9cc7d3898f24f3a5b84:src/pages/[userId]/index.svelte
-
+    
 
     console.log($params.userId);
     let nickname = $params.userId.slice(1);

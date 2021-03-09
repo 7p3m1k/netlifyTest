@@ -36,6 +36,7 @@
                 method: 'get',
                 url: `${myProcess.env.FB_API_URL}/getBrandDetail?nickname=${nickname}&brandId=${brandId}`,
             });
+
             brandDetail = await resp.data;
             $ready()
         } catch(err) {
@@ -78,6 +79,7 @@
                 method: 'get',
                 url: `${myProcess.env.FB_API_URL}/getBrandDetail?nickname=${nickname}&brandId=${brandId}`,
             });
+
             brandMetaInfo = await resp.data;
 
             const resp2 = await axios({
@@ -88,6 +90,7 @@
             brandMetaInfo.userName = await resp2.data.name
 
             $ready()
+
         } catch(err) {
             console.log("사용자 정보 가져오기에 실패하였습니다. = " + nickname);
         }
