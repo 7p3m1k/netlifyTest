@@ -1,13 +1,11 @@
 <script>
 
-    import { onMount, afterUpdate } from 'svelte';  
-    import LoadingSpinner from '../LoadingSpinner.svelte';
-    import TextBox                  from '../TextBox.svelte';
-    import { goto, url }        from '@roxi/routify'
-    import axios from 'axios';
+    import { onMount }          from 'svelte';  
+    import LoadingSpinner       from '../LoadingSpinner.svelte';
+    import { goto, url, ready }        from '@roxi/routify'
+    import axios                from 'axios';
 
     export let nickname;
-    export let userName;
     export let userColor;
 
     let brandList;
@@ -38,6 +36,7 @@
                 url: `${myProcess.env.FB_API_URL}/getBrandList?nickname=${nickname}`,
             });
             brandList = await resp.data.brand_list;
+            $ready()
 
         } catch(err) {
             console.log("사용자 이름 정보 가져오기에 실패하였습니다.");

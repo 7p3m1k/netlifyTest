@@ -6,7 +6,6 @@
     "dev:features": "develop with features like SSR and serviceworker enabled",
     "build": "run build scripts below",
     "build:app": "build single page application (SPA)",
-    "build:static": "Generate static pages",
     "serve": "serve content in 'dist' folder",
     "rollup": "run the rollup bundler",
     "nollup": "run the nollup no-bundler",
@@ -17,7 +16,6 @@
     "dev:ssr": "run-p routify rollup",
     "build": "run-s build:*",
     "build:app": "routify -b && rollup -c",
-    "build:static": "spank",
     "serve": "spassr --ssr",
     "rollup": "rollup -cw",
     "nollup": "nollup -c",
@@ -60,5 +58,8 @@
     "blacklist": [
       "/example/modal/basic/4"
     ]
+  },
+  "dependencies": {
+    "@rollup/plugin-replace": "^2.4.1"
   }
 }

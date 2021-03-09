@@ -1,6 +1,5 @@
 <script>
-    import { onMount, onDestroy, tick }      from 'svelte';
-    import { fly }          from 'svelte/transition';
+    import { onMount, onDestroy }      from 'svelte';
     import TextBox          from '../TextBox.svelte';
     import Seperator        from '../Seperator.svelte';
 
@@ -67,6 +66,8 @@
                     <a class="btn-go" href={item["link-url2"]}>{item["link-text"]}</a> 
                 {/if}
             </div>
+            <!-- svelte-ignore a11y-img-redundant-alt -->
+            <!-- svelte-ignore missing-declaration -->
             <img alt="cover-image" width={imgWidth} height={imgWidth} src="{myProcess.env.IMG_URL}{item["img-url"]}"/>
         </li>
     {/each}

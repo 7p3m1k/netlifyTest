@@ -1,9 +1,9 @@
 <script>
-    import axios from 'axios';
-    import { onMount }      from 'svelte';
-    import { slide }        from 'svelte/transition';
-    import LoadingSpinner from './LoadingSpinner.svelte';
-    import { goto, url, ready, params }        from '@roxi/routify';
+    import axios                            from 'axios';
+    import { onMount }                      from 'svelte';
+    import { slide }                        from 'svelte/transition';
+    import LoadingSpinner                   from './LoadingSpinner.svelte';
+    import { url, ready }                          from '@roxi/routify';
 
     export let nickname;
     export let userColor;
@@ -23,15 +23,15 @@
                 url: `${myProcess.env.FB_API_URL}/getProjectDetail?nickname=${nickname}&projectId=${projectId}`,
             });
             projectDetail = await resp.data;
+            $ready()
         } catch(err) {
             console.log("프로젝트 정보 가져오기에 실패하였습니다.");
-            // window.location.href = `${myProcess.env.ROOT_URL}/@${nickname}`;
         };
     };
 
-    const showProjectAll = async () => {
+    const showProjectAll = () => {
         if (!projectDetail) {
-            await getProjectDetail();
+            getProjectDetail();
         } 
         isOpened = true;   
         window.scrollTo({top: projectWrapper.offsetTop, behavior: 'smooth'});
@@ -42,8 +42,8 @@
         isOpened = false;
     }
 
-    onMount(async () => {
-        await getProjectDetail();
+    onMount( () => {
+        getProjectDetail();
     });
 
 </script>
@@ -70,9 +70,11 @@
                     <ul class="collabo">
                         {#each projectDetail.collabo as item}
                             <li>
-                                    <a href={$url(`/@${item.user_name}`)}>
+                                <a href={$url(`/@${item.user_name}`)}>
                                     <div class="img-box" style="background-image:url({item.img_src})"></div>
-                                    <p class="collabo-name"><strong>{item.name}</strong>@{item.user_name}</p>
+                                    {#if item.name }
+                                        <p class="collabo-name"><strong>{item.name}</strong>@{item.user_name}</p>
+                                    {/if}
                                     <p class="summary">{item.summary}</p>
                                 </a>
                             </li>

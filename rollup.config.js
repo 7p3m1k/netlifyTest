@@ -83,6 +83,7 @@ export default {
                     ROOT_URL: process.env.BUILD === "production" ? process.env.ROOT_URL_PROD : process.env.ROOT_URL_DEV,
                 }
             }),
+            preventAssignment: true,
         }),
 
         production && terser(),

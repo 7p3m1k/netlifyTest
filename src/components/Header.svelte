@@ -1,5 +1,5 @@
 <script>
-    import { onMount }      from 'svelte'
+    import { onMount }      from 'svelte';
     import { url } from '@roxi/routify';
 
     export let loginCheck;

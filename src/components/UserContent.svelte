@@ -1,5 +1,4 @@
 <script>
-    import { onMount }      from 'svelte';
     import LoadingSpinner from './LoadingSpinner.svelte';
 
     export let contentTitle;
