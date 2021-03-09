@@ -14,10 +14,17 @@
     
     export let brandId ;
     
+    
     let nickname = $params.userId.slice(1);
     
     let userName = "";
-    let brandMetaInfo = {};
+    let brandMetaInfo = {
+        userName:"아무개",
+        title: "test",
+        photo_url: "001",
+        why: "사랑합니다."
+    };
+    
 
     let inspTextWidth;
     let brandDetail;
@@ -30,6 +37,7 @@
                 url: `${myProcess.env.FB_API_URL}/getBrandDetail?nickname=${nickname}&brandId=${brandId}`,
             });
             brandDetail = await resp.data;
+            $ready()
         } catch(err) {
             console.log("Brand 정보 가져오기에 실패하였습니다. = " + nickname);
             $goto($url(`/@${nickname}`));
@@ -57,6 +65,7 @@
                 url: `${myProcess.env.FB_API_URL}/getBrandProjectAll?nickname=${nickname}&brandId=${brandId}`,
             });
             brandProjects = await resp.data.project_list;
+            $ready()
         } catch(err) {
             console.log("프로젝트 정보 가져오기에 실패하였습니다. = " + nickname);
             $goto($url(`/@${nickname}`));
@@ -70,14 +79,23 @@
                 url: `${myProcess.env.FB_API_URL}/getBrandDetail?nickname=${nickname}&brandId=${brandId}`,
             });
             brandMetaInfo = await resp.data;
+
+            const resp2 = await axios({
+                method: 'get',
+                url: `${myProcess.env.FB_API_URL}/getUserName?nickname=${nickname}`,
+            });
+
+            brandMetaInfo.userName = await resp2.data.name
+
             $ready()
         } catch(err) {
             console.log("사용자 정보 가져오기에 실패하였습니다. = " + nickname);
         }
     };
 
+    getBrandMeta();
+
     onMount(() => {
-        getBrandMeta();
         getUserName();
         getBrandDetail();
         getBrandProjectAll();
@@ -86,8 +104,8 @@
 </script>
 
 <svelte:head>
-    <title>{userName} : {brandMetaInfo.title}</title>
-    <meta property="og:title" content="{userName} : {brandMetaInfo.title}"/>
+    <title>{brandMetaInfo.userName} : {brandMetaInfo.title}</title>
+    <meta property="og:title" content="{brandMetaInfo.userName} : {brandMetaInfo.title}"/>
     <meta property="og:image" content="https://firebasestorage.googleapis.com/v0/b/allius-dev.appspot.com/o/brand_icon%2FBRI-{brandMetaInfo.photo_url}.jpg?alt=media"/>
     <meta property="og:description" content="{brandMetaInfo.why}"/>
 </svelte:head>

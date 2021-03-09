@@ -1,20 +1,31 @@
 <script>
     import { onMount }          from 'svelte';
     import { goto, url, ready, params }        from '@roxi/routify';
+    import axios                from "axios";
+    
     import Header               from '../../components/Header.svelte';
     import SectionWrapper       from '../../components/SectionWrapper.svelte';
     import UserProject          from '../../Components/UserProject.svelte';
     import UserProfileSection   from '../../Components/Sections/UserProfileSection.svelte';
     import UserBrandListSection from '../../Components/Sections/UserBrandListSection.svelte';
     import LoadingSpinner       from '../../components/LoadingSpinner.svelte';
+<<<<<<< HEAD:src/pages/@[userId]/index.svelte
     import axios                from "axios";
     import * as svelte from 'svelte';
+=======
+>>>>>>> c86e03cabd48070febcaf9cc7d3898f24f3a5b84:src/pages/[userId]/index.svelte
 
+
+    console.log($params.userId);
     let nickname = $params.userId.slice(1);
 
     let userProfile;
 
-    let userMetaInfo = {};
+    let userMetaInfo = {
+        name: "test",
+        photo_url: "https://lh3.googleusercontent.com/proxy/JZ-KSfsc-6_zYZIayevPruBS-ALQjsIj9-Fs95NVVev4N7F1TmyH1znbu2D2Gopk0OuaJy-dHne4kXt395BLGsRi4eQ9Jv26Dd66MR4nsQdtRgwJjIKaorKzb3k1-BpDfL1m55D3uPL4HrF7wxdp",
+        note: "사랑합니다."
+    };
     
     let userProjects;
 
@@ -26,14 +37,17 @@
             });
 
             userProjects = await resp.data.project_list;
+            $ready()
 
         } catch(err) {
-            if (err.response && err.reponse.status === 400){
+            if (err.response && err.response.status === 400){
+                console.log("최근 정보 가져오기 실패");
+                $goto($url('/_fallback'));
+            } else {
                 $goto($url('/_fallback'));
             }
         }
     }
-
 
     const getUserInfo = async() => {
         try {
@@ -42,13 +56,14 @@
                 url: `${myProcess.env.FB_API_URL}/getUserBasicInfo?nickname=${nickname}`,
             });
 
+            
             userProfile = await resp.data;
+            userProfile.userColor = await "#1ecce4";
+            $ready()
         } catch(err) {
-            console.log("사용자 정보 가져오기에 실패하였습니다. = " + nickname);
+            console.log("사용자 정보 가져오기에 실패하였습니다. =" + nickname);
             $goto($url('/_fallback'));
-        } finally {
-            userProfile["userColor"] = "#1ecce4";
-        }
+        } 
     };
 
     const getUserMeta = async() => {
@@ -62,14 +77,14 @@
             $ready()
 
         } catch(err) {
-            console.log("사용자 정보 가져오기에 실패하였습니다. = " + nickname);
+            console.log("메타정보 가져오기에 실패하였습니다. = " + nickname);
             $goto($url('/_fallback'));
         }
     };
 
+    getUserMeta();
 
     onMount( () => {
-        getUserMeta();
         getUserInfo();
         getRecentProjects();
     });

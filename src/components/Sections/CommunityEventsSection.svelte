@@ -1,79 +1,112 @@
 <script>
-    import { onMount, tick, beforeUpdate } from 'svelte';
+    import { onMount }      from 'svelte';
     import { slide }        from 'svelte/transition';
     import axios            from "axios";
-    import LoadingSpinner from '../LoadingSpinner.svelte';
-    
+    import LoadingSpinner   from '../LoadingSpinner.svelte';
+    import { ready }        from '@roxi/routify';
 
     let eventsList;
 
-    const mixArray = (a, b) => {  
-        return 0.5 - Math.random();
-    }  
-
-    const listView = (lists, idx) => {
-        eventsList[lists][idx].selected = !eventsList[lists][idx].selected;
+    const listView = (obj) => {
+        if(obj.selected){
+            obj.selected = false;
+        }else {
+            obj.selected = true;
+        }
+        eventsList = eventsList;
     }
 
-    onMount( async () => {
-        const resp = await axios.get(`https://dkjss7qyb8.execute-api.ap-northeast-2.amazonaws.com/dev/page-management/community-events/list/landing`)
-        for (let lists in resp.data){
-            if (resp.data[lists][0].id){
-                resp.data[lists].forEach( item => {
-                    item.date = new Date(item["date"]);
-                    item.selected = false;
-                });
-            }
-        }
-        eventsList = resp.data;
+    const getEventList = async() => {
+        try {
+            const resp = await axios({
+                method: 'get',
+                url: `${myProcess.env.SERVER_API}/page-management/community-events/list/landing`
+            });
+
+            eventsList = await resp.data;
+            $ready()
+
+        } catch(err) {
+            console.log(err);
+            console.log("무언가 잘못되었습니다.")
+        };
+    };
+
+    const formatDate = (date) => {
+        let d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+    let isObjEmpty = (obj) => {
+        return Object.keys(obj).length === 0;
+    }
+    
+    onMount( () => {
+        getEventList();
     });
+
 </script>
 
 <div class="community-events-wrapper">
     <slot></slot>
     <div class="list-wrapper">
         {#if eventsList}
-        <ul class="upcoming-events">
-            <li class="list-name"><p>Upcoming</p></li>
-            {#if eventsList.upcoming_events[0].id}
-                {#each eventsList.upcoming_events as item, idx}
-                    <li class="list-item unselected" on:click={()=>listView("upcoming_events", idx)}>
-                        <p class="event-title">{item.title}</p>
-                        <p class="event-date">{`${item.date.getFullYear()}년 ${item.date.getMonth()+1}월 ${item.date.getDate()}일`}</p>
-                    </li>
-                    {#if item.selected}
-                        <li class="selected" transition:slide>
-                            <span class="event-description">{item.description}</span>
-                            {#if item.link_url}
-                                <a href={item.link_url} target="_blank">바로가기</a>
+            <ul class="upcoming-events">
+                <li class="list-name"><p>Upcoming</p></li>
+                {#if eventsList.upcoming_events && !isObjEmpty(eventsList.upcoming_events[0])}
+                    {#each eventsList.upcoming_events as item}
+                        {#if !isObjEmpty(item)}
+                            <li class="list-item unselected" on:click={()=>listView(item)}>
+                                <p class="event-title">{item.title}</p>
+                                <p class="event-date">{formatDate(item.date)}</p>
+                            </li>
+                            {#if item.selected}
+                                <li class="selected" transition:slide>
+                                    <span class="event-description">{item.description}</span>
+                                    {#if item.link_url}
+                                        <a href={item.link_url} target="_blank">바로가기</a>
+                                    {/if}
+                                </li>
                             {/if}
-                        </li>
-                    {/if}
-                {/each}
-            {:else}
-                <li class="list-item unselected">
-                    <p class="event-title">이벤트를 준비 중입니다.</p>
-                    <p class="event-date">coming soon</p>
-                </li>
-            {/if}
-        </ul>
-        <ul class="finished-events">
-            <li class="list-name"><p>We did</p></li>
-            {#each eventsList.finished_events as item, idx}
-                <li class="list-item unselected" on:click={()=>listView("finished_events", idx)}>
-                    <p class="event-title">{item.title}</p>
-                    <p class="event-date">{`${item.date.getFullYear()}년 ${item.date.getMonth()+1}월 ${item.date.getDate()}일`}</p>
-                </li>
-                {#if item.selected}
-                    <li class="selected" transition:slide>
-                        <span class="event-description">{item.description}</span>
-                        {#if item.link_url}
-                            <a href={item.link_url} target="_blank">바로가기</a>
                         {/if}
+                    {/each}
+                {:else}
+                    <li class="list-item unselected">
+                        <p class="event-title">이벤트를 준비 중입니다.</p> 
+                        <p class="event-date">coming soon</p>
                     </li>
                 {/if}
-            {/each}
-        </ul>
+            </ul>
+            <ul class="finished-events">
+                <li class="list-name"><p>We did</p></li>
+                {#if eventsList.finished_events && !isObjEmpty(eventsList.finished_events[0]) }
+                    {#each eventsList.finished_events as item}
+                        {#if !isObjEmpty(item)}
+                            <li class="list-item unselected" on:click={()=>listView(item)}>
+                                <p class="event-title">{item.title}</p>
+                                <p class="event-date">{formatDate(item.date)}</p>
+                            </li>
+                            {#if item.selected}
+                                <li class="selected" transition:slide>
+                                    <span class="event-description">{item.description}</span>
+                                    {#if item.link_url}
+                                        <a href={item.link_url} target="_blank">바로가기</a>
+                                    {/if}
+                                </li>
+                            {/if}
+                        {/if}
+                    {/each}
+                {/if}
+            </ul>
         {:else}
             <LoadingSpinner/>
         {/if}
@@ -103,7 +136,7 @@
                 li {
                     display: block;
 
-                    &.list-name {
+                    .list-name {
                         margin-bottom: 12px;
 
                         p {

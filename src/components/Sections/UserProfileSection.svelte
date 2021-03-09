@@ -1,7 +1,8 @@
 <script>
-    import { onMount, afterUpdate }      from 'svelte';
-    import LoadingSpinner from '../LoadingSpinner.svelte';
-    import TextBox          from '../TextBox.svelte';
+    import { onMount }                  from 'svelte';
+    import LoadingSpinner               from '../LoadingSpinner.svelte';
+    import TextBox                      from '../TextBox.svelte';
+    import { page }                     from '@roxi/routify';
 
     export let nickname;
     export let userProfile;
@@ -31,15 +32,6 @@
         }
     }
 
-    const copyUserUrl = () => {
-        let dummy = document.createElement("textarea");
-        document.body.appendChild(dummy);
-        dummy.value = `${myProcess.env.ROOT_URL}/@${nickname}`;
-        dummy.select();
-        document.execCommand("copy");
-        document.body.removeChild(dummy);
-    }
-
     onMount(() => {
         if (userProfile){
             sortSns(userProfile.sns);
@@ -51,8 +43,11 @@
 <div class="user-profile-wrapper">
 {#if userProfile}
     <div class="profile-img" style="background-image:url({userProfile.photo_url})"></div>
-    <h3>{userProfile.name}</h3>
-    <p style="color:{userProfile.userColor}" class="user-name">@{nickname} <img src="{myProcess.env.IMG_URL}/assets/icon-copy.png" alt="" on:click={()=>copyUserUrl()}></p>
+    {#if userProfile.name}
+        <h3>{userProfile.name}</h3>
+    {/if}
+    <!-- svelte-ignore missing-declaration -->
+    <p style="color:{userProfile.userColor}" class="user-name">@{nickname} <img src="{myProcess.env.IMG_URL}/assets/icon-copy.png" alt=""></p>
     <TextBox
         tagType="p"
         className="user-profile-note"
@@ -70,6 +65,8 @@
     {#each ["tw", "fb", "in"] as item}
         {#if userSns[item]}
         <li class={item}>
+            <!-- svelte-ignore missing-declaration -->
+            <!-- svelte-ignore a11y-missing-content -->
             <a href={userSns[item]} target="_blank" style="background-image:url({myProcess.env.IMG_URL}/assets/sns-{item}.png)"></a>
         </li>
         {/if}
@@ -77,6 +74,8 @@
     {#if userSns.etc.length > 0}
         {#each userSns.etc as item}
         <li class="etc">
+            <!-- svelte-ignore a11y-missing-content -->
+            <!-- svelte-ignore missing-declaration -->
             <a href={item} style="background-image:url({myProcess.env.IMG_URL}/assets/sns-etc.png)"></a>
         </li>
         {/each}

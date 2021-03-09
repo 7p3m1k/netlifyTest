@@ -2,8 +2,8 @@
     import { onMount }      from 'svelte';
     import TextBox          from '../TextBox.svelte';
     import axios            from "axios";
-    import LoadingSpinner from '../LoadingSpinner.svelte';
-    import { url,goto } from '@roxi/routify';
+    import LoadingSpinner   from '../LoadingSpinner.svelte';
+    import { url,goto, ready}     from '@roxi/routify';
 
 
     const mixArray = (a, b) => {  
@@ -39,14 +39,15 @@
         scrollX = 0;
         try {
             const resp = await axios({
-            method: 'get',
-            url: (`https://dkjss7qyb8.execute-api.ap-northeast-2.amazonaws.com/dev/page-management/brand-stories/list/landing`)
-        })
+                method: 'get',
+                url: (`${myProcess.env.SERVER_API}/page-management/brand-stories/list/landing`)
+            })
 
             brStories = await resp.data["brand_stories_list"].sort(mixArray);
-                if (scrollWidth > wrapperWidth) {
-                    isOverFlow = true;
-                }
+            if (scrollWidth > wrapperWidth) {
+                isOverFlow = true;
+            }
+            $ready()
         } catch(err) {
             $goto($url('/_fallback'));
         }

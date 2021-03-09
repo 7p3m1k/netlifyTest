@@ -62,11 +62,11 @@
                     <span>{item["text"]}</span>
                 </a>
             {:else}
-                <a href="javascript:void(0);" class="not-opened">
+                <button disabled class="not-opened">
                     <p>0{index+1}</p>
                     <span class="coming">coming soon</span>
                     <span>{item["text"]}</span>
-                </a>
+                </button>
             {/if}
             </li>
         {/each}
@@ -102,7 +102,7 @@
                     margin-right: 0;
                 }
                 
-                a {
+                a, button {
                     display: block;
                     font-weight: 700;
                     background-color: white;
@@ -121,7 +121,7 @@
                     }
                 }
 
-                a.not-opened {
+                button.not-opened {
                     line-height: 1.1em;
 
                     span {

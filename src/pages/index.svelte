@@ -1,4 +1,5 @@
 <script>
+
     import BrandStorySection            from '../components/Sections/BrandStorySection.svelte';
     import TutorialSection              from '../components/Sections/TutorialSection.svelte';
     import CommunityEventsSection       from '../components/Sections/CommunityEventsSection.svelte';
@@ -20,6 +21,8 @@
 
 <Header bind:loginCheck={loginCheck} />
 <SectionWrapper className="section-top">
+    <!-- svelte-ignore missing-declaration -->
+    <!-- svelte-ignore a11y-missing-content -->
     <a class="cover-image" style="background-image: url({myProcess.env.IMG_URL}/static-images/landing-03.jpg);" href="https://allius.io/desk"></a>
     <!-- <CoverSection imgWidth={imgWidth} {loginCheck} /> -->
 </SectionWrapper>
