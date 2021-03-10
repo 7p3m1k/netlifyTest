@@ -16,10 +16,12 @@
     "dev:ssr": "run-p routify rollup",
     "build": "run-s build:*",
     "build:app": "routify -b && rollup -c",
+    "build:static": "spank",
     "serve": "spassr --ssr",
     "rollup": "rollup -cw",
     "nollup": "nollup -c",
-    "routify": "routify"
+    "routify": "routify",
+    "deploy": "yarn build && aws s3 sync ./dist s3://allius-sapper-test"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^15.0.0",

@@ -1,6 +1,6 @@
 <script>
     import { onMount }          from 'svelte';
-    import { goto, url, ready, params }        from '@roxi/routify';
+    import { goto, url, ready, params, metatags }        from '@roxi/routify';
     import axios                from "axios";
     
     import Header               from '../../components/Header.svelte';
@@ -9,19 +9,11 @@
     import UserProfileSection   from '../../Components/Sections/UserProfileSection.svelte';
     import UserBrandListSection from '../../Components/Sections/UserBrandListSection.svelte';
     import LoadingSpinner       from '../../components/LoadingSpinner.svelte';
-    
 
-    console.log($params.userId);
+
     let nickname = $params.userId.slice(1);
-
     let userProfile;
-
-    let userMetaInfo = {
-        name: "test",
-        photo_url: "https://lh3.googleusercontent.com/proxy/JZ-KSfsc-6_zYZIayevPruBS-ALQjsIj9-Fs95NVVev4N7F1TmyH1znbu2D2Gopk0OuaJy-dHne4kXt395BLGsRi4eQ9Jv26Dd66MR4nsQdtRgwJjIKaorKzb3k1-BpDfL1m55D3uPL4HrF7wxdp",
-        note: "사랑합니다."
-    };
-    
+    let userMetaInfo = {};
     let userProjects;
 
     const getRecentProjects = async () => {
@@ -32,7 +24,6 @@
             });
 
             userProjects = await resp.data.project_list;
-            $ready()
 
         } catch(err) {
             if (err.response && err.response.status === 400){
@@ -54,7 +45,6 @@
             
             userProfile = await resp.data;
             userProfile.userColor = await "#1ecce4";
-            $ready()
         } catch(err) {
             console.log("사용자 정보 가져오기에 실패하였습니다. =" + nickname);
             $goto($url('/_fallback'));
@@ -62,21 +52,16 @@
     };
 
     const getUserMeta = async() => {
-        try {
-            const resp = await axios({
-                method: 'get',
-                url: `${myProcess.env.FB_API_URL}/getUserBasicInfo?nickname=${nickname}`,
-            });
+        const resp = await axios({
+            method: 'get',
+            url: `${myProcess.env.FB_API_URL}/getUserBasicInfo?nickname=${nickname}`,
+        });
 
-            userMetaInfo = await resp.data;
-            $ready()
-
-        } catch(err) {
-            console.log("메타정보 가져오기에 실패하였습니다. = " + nickname);
-            $goto($url('/_fallback'));
-        }
+        userMetaInfo = await resp.data
+        $ready()
     };
 
+    metatags.title = "test title";
     getUserMeta();
 
     onMount( () => {

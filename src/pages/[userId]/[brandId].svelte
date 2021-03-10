@@ -1,3 +1,4 @@
+<!-- routify:options preload="proximity" -->
 <script>
     import { onMount }              from 'svelte';
     import axios                    from "axios";
@@ -18,12 +19,7 @@
     let nickname = $params.userId.slice(1);
     
     let userName = "";
-    let brandMetaInfo = {
-        userName:"아무개",
-        title: "test",
-        photo_url: "001",
-        why: "사랑합니다."
-    };
+    let brandMetaInfo ={};
     
 
     let inspTextWidth;
@@ -38,7 +34,6 @@
             });
 
             brandDetail = await resp.data;
-            $ready()
         } catch(err) {
             console.log("Brand 정보 가져오기에 실패하였습니다. = " + nickname);
             $goto($url(`/@${nickname}`));
@@ -52,7 +47,6 @@
                 url: `${myProcess.env.FB_API_URL}/getUserName?nickname=${nickname}`,
             });
             userName = await resp.data.name;
-            $ready()
         } catch(err) {
             console.log("사용자 이름 정보 가져오기에 실패하였습니다. = " + nickname);
             $goto($url(`/@${nickname}`));
@@ -66,7 +60,6 @@
                 url: `${myProcess.env.FB_API_URL}/getBrandProjectAll?nickname=${nickname}&brandId=${brandId}`,
             });
             brandProjects = await resp.data.project_list;
-            $ready()
         } catch(err) {
             console.log("프로젝트 정보 가져오기에 실패하였습니다. = " + nickname);
             $goto($url(`/@${nickname}`));
@@ -74,26 +67,22 @@
     };
 
     const getBrandMeta = async() => {
-        try {
-            const resp = await axios({
-                method: 'get',
-                url: `${myProcess.env.FB_API_URL}/getBrandDetail?nickname=${nickname}&brandId=${brandId}`,
-            });
+        const resp = await axios({
+            method: 'get',
+            url: `${myProcess.env.FB_API_URL}/getBrandDetail?nickname=${nickname}&brandId=${brandId}`,
+        });
 
-            brandMetaInfo = await resp.data;
+        brandMetaInfo = await resp.data;
 
-            const resp2 = await axios({
-                method: 'get',
-                url: `${myProcess.env.FB_API_URL}/getUserName?nickname=${nickname}`,
-            });
+        const resp2 = await axios({
+            method: 'get',
+            url: `${myProcess.env.FB_API_URL}/getUserName?nickname=${nickname}`,
+        });
 
-            brandMetaInfo.userName = await resp2.data.name
+        brandMetaInfo.userName = await resp2.data.name
 
-            $ready()
+        $ready()
 
-        } catch(err) {
-            console.log("사용자 정보 가져오기에 실패하였습니다. = " + nickname);
-        }
     };
 
     getBrandMeta();
