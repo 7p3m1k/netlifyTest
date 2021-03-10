@@ -21,3 +21,14 @@
   # from = "/*"
   # to = "/__app.html"
   # status = 200
+
+
+TOKEN_KEY = "auth_manager"
+SERVER_API_PROD = "https://5shbpqqfkk.execute-api.ap-northeast-2.amazonaws.com/prod"
+SERVER_API_DEV = "https://dkjss7qyb8.execute-api.ap-northeast-2.amazonaws.com/dev"
+IMG_URL = "https://allius-images.s3.ap-northeast-2.amazonaws.com"
+T_STAGE = "tutorial_stage"
+FB_API_URL = "https://us-central1-allius.cloudfunctions.net"
+BRI_URL = ""
+ROOT_URL_PROD = "https://me.allius.io"
+ROOT_URL_DEV = "http://dev-public.allius.io"
